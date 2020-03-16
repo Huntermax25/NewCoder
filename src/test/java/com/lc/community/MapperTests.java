@@ -1,9 +1,12 @@
 package com.lc.community;
 
 import com.lc.community.dao.DiscussPosMapper;
+import com.lc.community.dao.LoginTicketMapper;
 import com.lc.community.dao.UserMapper;
 import com.lc.community.entity.DiscussPost;
+import com.lc.community.entity.LoginTicket;
 import com.lc.community.entity.User;
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -23,6 +27,9 @@ public class MapperTests {
 
     @Autowired
     private DiscussPosMapper discussPosMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
 
     @Test
@@ -70,5 +77,32 @@ public class MapperTests {
 
         int rows = discussPosMapper.selectDiscussPostRows(149);
         System.out.println(rows);
+    }
+
+    /**
+     * 测试登录增加方法
+     */
+    @Test
+    public void testInsertLoginTicket(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(101);
+        loginTicket.setStatus(0);
+        loginTicket.setTicket("abc");
+        loginTicket.setExpired(new Date(System.currentTimeMillis()+1000*60*10));
+
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    /**
+     * 测试登录查询方法
+     */
+    @Test
+    public void testSelectLoginTicket(){
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("abc");
+        System.out.println(loginTicket);
+
+        loginTicketMapper.updateStatus("abc",1);
+        loginTicket = loginTicketMapper.selectByTicket("abc");
+        System.out.println(loginTicket);
     }
 }
