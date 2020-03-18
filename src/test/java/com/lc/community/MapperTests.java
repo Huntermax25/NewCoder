@@ -1,12 +1,11 @@
 package com.lc.community;
 
-import com.lc.community.dao.DiscussPosMapper;
+import com.lc.community.dao.DiscussPostMapper;
 import com.lc.community.dao.LoginTicketMapper;
 import com.lc.community.dao.UserMapper;
 import com.lc.community.entity.DiscussPost;
 import com.lc.community.entity.LoginTicket;
 import com.lc.community.entity.User;
-import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class MapperTests {
     private UserMapper userMapper;
 
     @Autowired
-    private DiscussPosMapper discussPosMapper;
+    private DiscussPostMapper discussPostMapper;
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
@@ -70,12 +69,12 @@ public class MapperTests {
      */
     @Test
     public void testSelectPosts(){
-        List<DiscussPost> list = discussPosMapper.selectDiscussPosts(149, 0, 10);
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10);
         for(DiscussPost post:list){
             System.out.println(post);
         }
 
-        int rows = discussPosMapper.selectDiscussPostRows(149);
+        int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
     }
 

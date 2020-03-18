@@ -1,4 +1,4 @@
-package com.lc.community.interceptor;
+package com.lc.community.controller.interceptor;
 
 import com.lc.community.entity.LoginTicket;
 import com.lc.community.entity.User;
